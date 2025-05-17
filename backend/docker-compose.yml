@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  auth_service:
+    build: ./auth_service
+    ports:
+      - "3001:3001"
+
+  user_service:
+    build: ./user_service
+    ports:
+      - "3002:3002"
+
+  exercise_service:
+    build: ./exercise_service
+    ports:
+      - "3003:3003"
+      
+  api_gateway:
+    build: ./api_gateway
+    ports:
+      - "3000:3000"
+    depends_on:
+      - auth_service
+      - user_service
+      - exercise_service
