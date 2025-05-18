@@ -3,7 +3,7 @@ const Exercise = require('../model/exerciseModel');
 const protect = require('.././middleware/authMiddleware');
 const allowedRoles = require('../middleware/allowedRoles');
 
-router.get('/', protect, allowedRoles('user', 'admin'), (req, res) => {
+router.get('/', (req, res) => {
     Exercise.find()
         .then((exercises) => res.json(exercises))
         .catch((err) => res.status(400).json('Error: ' + err));

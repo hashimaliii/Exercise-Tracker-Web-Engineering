@@ -4,13 +4,13 @@ import { useState, useRef } from 'react'
 export default function Login() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    const [role, setRole] = useState('user');
     const roleRef = useRef(null);
     const [error, setError] = useState('');
 
     const handleLogin = async (e) => {
         e.preventDefault();
         try {
+            const role = roleRef.current.value;
             const res = await axios.post('http://localhost:5000/auth/register', {
                 username,
                 password,
@@ -18,6 +18,7 @@ export default function Login() {
             });
 
             localStorage.setItem('token', res.data.token);
+            localStorage.setItem('role', res.data.role);
             alert("Singup successful!")
 
             window.location.href = '/login';
@@ -36,7 +37,7 @@ export default function Login() {
                     <label>Password: </label>
                     <input type='password' value={password} onChange={(e) => setPassword(e.target.value)}></input>
                     <label>Role: </label>
-                    <select id="role" ref={roleRef} onChange={(e) => { setRole(roleRef.current.value); }}>
+                    <select id="role" ref={roleRef}>
                         <option value="user">User</option>
                         <option value="admin">Admin</option>
                     </select>

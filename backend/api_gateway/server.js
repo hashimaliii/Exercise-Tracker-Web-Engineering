@@ -15,7 +15,7 @@ app.use('/auth', createProxyMiddleware({
     target: 'http://localhost:5001',
     changeOrigin: true,
     pathRewrite: {
-        "^": "auth",
+        "^": "/auth",
     },
     secure: false,
 }));
@@ -24,7 +24,7 @@ app.use('/users', createProxyMiddleware({
     target: 'http://user-service:5002',
     changeOrigin: true,
     pathRewrite: {
-        "^": "users",
+        "^": "/users",
     },
     secure: false,
 }))
@@ -33,7 +33,7 @@ app.use('/excercises', createProxyMiddleware({
     target: 'http://exercise-service:5003',
     changeOrigin: true,
     pathRewrite: {
-        "^": "excercises",
+        "^": "/excercises",
     },
     secure: false
 }))

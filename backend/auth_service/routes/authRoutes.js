@@ -8,6 +8,7 @@ const generateToken = (id) => {
 }
 
 router.post('/register', async (req, res) => {
+    console.log(req.body);
     const username = req.body.username;
     const password = req.body.password;
     const role = req.body.role;
@@ -28,6 +29,7 @@ router.post('/register', async (req, res) => {
         .then(() => res.status(201).json({
             _id: newUser._id,
             username: newUser.username,
+            role: newUser.role,
             token: generateToken(newUser._id)
         }))
         .catch((err) => res.status(400).json('Error: ' + err));
