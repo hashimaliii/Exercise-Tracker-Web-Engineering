@@ -22,9 +22,13 @@ export default function UserDashboard() {
     const getExercises = async () => {
         try {
             const token = localStorage.getItem('token');
+            const role = localStorage.getItem('role');
             const res = await axios.get('http://localhost:5000/exercises', {
                 headers: {
                     Authorization: `Bearer ${token}`
+                },
+                params: {
+                    role
                 }
             });
             setExercises(res.data);

@@ -1,9 +1,11 @@
 import axios from 'axios'
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 
 export default function Login() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const [role, setRole] = useState('user');
+    const roleRef = useRef(null);
     const [error, setError] = useState('');
 
     const handleLogin = async (e) => {
@@ -11,7 +13,8 @@ export default function Login() {
         try {
             const res = await axios.post('http://localhost:5000/auth/register', {
                 username,
-                password
+                password,
+                role
             });
 
             localStorage.setItem('token', res.data.token);
@@ -32,6 +35,11 @@ export default function Login() {
                     <input type='text' value={username} onChange={(e) => setUsername(e.target.value)}></input>
                     <label>Password: </label>
                     <input type='password' value={password} onChange={(e) => setPassword(e.target.value)}></input>
+                    <label>Role: </label>
+                    <select id="role" ref={roleRef} onChange={(e) => { setRole(roleRef.current.value); }}>
+                        <option value="user">User</option>
+                        <option value="admin">Admin</option>
+                    </select>
                     {error && <p>{error}</p>}
                     <button type='submit'>Submit</button>
                 </form>

@@ -2,15 +2,15 @@ const router = require('express').Router();
 const User = require('.././model/userModel')
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs')
-const protect = require('.././middleware/authMiddleware');
 
 const generateToken = (id) => {
     return jwt.sign({ id }, 'secret123', { expiresIn: '2h' });
 }
 
-router.route('/register').post(async (req, res) => {
+router.post('/register', async (req, res) => {
     const username = req.body.username;
     const password = req.body.password;
+    const role = req.body.role;
 
     if (!username || !password) {
         return res.status(400).json({ message: "Please fill all the required fields" })
@@ -22,7 +22,7 @@ router.route('/register').post(async (req, res) => {
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
-    const newUser = new User({ username, password: hashedPassword });
+    const newUser = new User({ username, password: hashedPassword, role });
 
     await newUser.save()
         .then(() => res.status(201).json({
@@ -33,7 +33,7 @@ router.route('/register').post(async (req, res) => {
         .catch((err) => res.status(400).json('Error: ' + err));
 });
 
-router.route('/login').post(async (req, res) => {
+router.post('/login', async (req, res) => {
     const { username, password } = req.body;
     const user = await User.findOne({ username });
 
@@ -41,6 +41,7 @@ router.route('/login').post(async (req, res) => {
         res.json({
             _id: user._id,
             username: user.username,
+            role: user.role,
             token: generateToken(user._id)
         });
     }
