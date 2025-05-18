@@ -12,7 +12,7 @@ const app = express();
 app.use(cors());
 
 app.use('/auth', createProxyMiddleware({
-    target: 'http://localhost:5001',
+    target: 'http://auth-service:5001',
     changeOrigin: true,
     pathRewrite: {
         "^": "/auth",
