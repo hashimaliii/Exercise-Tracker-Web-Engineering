@@ -1,0 +1,33 @@
+version: '3.8'
+
+services:
+  auth-service:
+    build: ./backend/auth_service
+    ports:
+      - "3001:3001"
+
+  user-service:
+    build: ./backend/user_service
+    ports:
+      - "3002:3002"
+
+  exercise-service:
+    build: ./backend/exercise_service
+    ports:
+      - "3003:3003"
+    
+  api-gateway:
+    build: ./backend/api_gateway
+    ports:
+      - "3000:3000"
+    depends_on:
+      - auth-service
+      - user-service
+      - exercise-service
+
+  frontend:
+    build: ./frontend  # Assuming you have a Dockerfile for the frontend
+    ports:
+      - "80:80"  # You can use a different port if necessary
+    depends_on:
+      - api-gateway

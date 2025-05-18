@@ -17,7 +17,7 @@ app.use('/auth', createProxyMiddleware({target: 'http://auth-service:3001',
     secure: false,
 }));
 
-app.use('/users' createProxyMiddleware({target: 'http://user-service:3002',
+app.use('/users', createProxyMiddleware({target: 'http://user-service:3002',
     changeOrigin: true,
     secure: false,
 }))
