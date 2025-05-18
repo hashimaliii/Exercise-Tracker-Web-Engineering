@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
 import Login from './pages/auth/Login'
-import Singup from './pages/auth/Singup'
+import Signup from './pages/auth/Signup'
 import UserDashboard from './pages/user/UserDashboard'
 
 function App() {
@@ -10,7 +10,7 @@ function App() {
       <Routes>
         <Route path='/' element={<Navigate to="/login" />}></Route>
         <Route path='/login' element={<Login />}></Route>
-        <Route path='/signup' element={<Singup />}></Route>
+        <Route path='/signup' element={<Signup />}></Route>
         <Route path='/user/dashboard' element={<UserDashboard />}></Route>
       </Routes>
     </Router>

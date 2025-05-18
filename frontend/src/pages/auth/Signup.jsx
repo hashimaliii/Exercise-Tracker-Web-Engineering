@@ -1,13 +1,13 @@
 import axios from 'axios'
 import { useState, useRef } from 'react'
 
-export default function Login() {
+export default function Signup() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const roleRef = useRef(null);
     const [error, setError] = useState('');
 
-    const handleLogin = async (e) => {
+    const handleSignup = async (e) => {
         e.preventDefault();
         try {
             const role = roleRef.current.value;
@@ -31,7 +31,7 @@ export default function Login() {
     return (
         <>
             <div className="auth-container">
-                <form onSubmit={handleLogin}>
+                <form onSubmit={handleSignup}>
                     <label>Username: </label>
                     <input type='text' value={username} onChange={(e) => setUsername(e.target.value)}></input>
                     <label>Password: </label>
